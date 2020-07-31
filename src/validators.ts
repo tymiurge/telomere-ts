@@ -1,7 +1,7 @@
 import {OperationArgDef, OperationArgDefType, OperationArg} from './operations';
 import {isEmpty} from './utils';
 
-type Validator = (argDef: OperationArgDef, arg: OperationArg) => boolean;
+type Validator = (argDef: OperationArgDef, arg: OperationArg | null) => boolean;
 
 type Validators = {
   [k: string]: Validator,

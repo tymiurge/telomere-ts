@@ -1,18 +1,21 @@
 import moment from 'moment';
 import {getRandomValueOf} from './utils';
+import {validateArgPresence, validateArgType} from './validators';
 
-type OperationArgType = Object | string | number | Array<any>;
+type OperationArg = Object | string | number | Array<any>;
 
-type Operation = (args: OperationArgType[]) => any; 
+type OperationArgDefType = 'array' | 'undefined' | 'object' | 'boolean' | 'number' | 'bigint' | 'string' | 'symbol' | 'function';
 
-type OperationArg = {
-  type: OperationArgType | OperationArgType[],
+type OperationArgDef = {
+  type: OperationArgDefType | OperationArgDefType[],
   required?: boolean,
   nullable?: boolean,
 };
 
+type Operation = (args: OperationArg[]) => any; 
+
 type OperationDef = {
-  args?: OperationArg[],
+  args?: OperationArgDef[],
   exec: Operation
 }
 
@@ -25,7 +28,7 @@ const operations: Operations = {
     exec: () => moment().valueOf(),
   },
   randomValueOf: {
-    exec: (args: OperationArgType[]) => {
+    exec: (args: OperationArg[]) => {
       const [source] = args;
       return getRandomValueOf(source);
     },
@@ -40,11 +43,12 @@ const operations: Operations = {
 }
 
 export {
+  OperationArgDef,
+  OperationArgDefType,
   OperationArg,
-  OperationArgType,
 };
 
-export default (name: string, args?: OperationArgType[]) => {
+export default (name: string, args?: OperationArg[]) => {
   if (!operations.hasOwnProperty(name)) {
     throw new Error(`${name} is not supported operation`);
   }
@@ -55,9 +59,16 @@ export default (name: string, args?: OperationArgType[]) => {
     if (requiredParamsAmount !== actualParamsAmount) {
       throw new Error(`${name} requires ${requiredParamsAmount} parameter, but ${actualParamsAmount} is passed`);
     }
-    for (let argDef of operationDef.args) {
-      
+    for (let idx = 0; idx < operationDef.args.length; idx ++) {
+      const argDef = operationDef.args[idx];
+      const arg = args ? args[idx] : null;
+      if (!validateArgPresence(argDef, arg)) {
+        throw new Error(`The ${name} operation requires ${operationDef.args.filter(({required}) => required).length} parameters.`);
+      }
+      if (!validateArgType(argDef, arg)) {
+        throw new Error(`The ${idx}-th parameter of ${name} operation must be of the ${argDef.type} type`);
+      }
     }
   }
-  return operationDef.exec(args as OperationArg[]);
+  return operationDef.exec(args || []);
 }

@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import moment from 'moment';
-import execute, {OperationArg} from './../src/operations';
+import execute from './../src/operations';
 
 
 describe('operations test suit', () => {
@@ -30,11 +30,12 @@ describe('operations test suit', () => {
     expect(() => execute('randomValueOf', [])).to.throw('randomValueOf requires 1 parameter, but 0 is passed');
   });
 
-  // it('randomValueOf applied to an empty array throws "randomValueOf can not be applied to an empty array"', () => {
-  //   expect(() => execute('randomValueOf', [[]])).to.throw('ddfdf');
-  // });
+  it('randomValueOf applied to an empty array throws type error', () => {
+    expect(() => execute('randomValueOf', [[]])).to.throw('The 0-th parameter of randomValueOf operation must be of the array,object type');
+  });
   
-  // it('randomValueOf applied to an empty object throws "randomValueOf can not be applied to an empty object"', () => {
-  // });
+  it('randomValueOf applied to an empty object throws type error', () => {
+    expect(() => execute('randomValueOf', [{}])).to.throw('The 0-th parameter of randomValueOf operation must be of the array,object type');
+  });
   
 });

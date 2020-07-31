@@ -1,6 +1,9 @@
 export const getRandomInt = (max: number): number => Math.floor(Math.random() * Math.floor(max));
 
-export const isEmpty = (candidate: Object | Array<any>): boolean => {
+export const isEmpty = (candidate: Object | Array<any> | null | undefined): boolean => {
+  if (!candidate) {
+    return false;
+  }
   if (Array.isArray(candidate)) {
     return candidate.length === 0;
   }
