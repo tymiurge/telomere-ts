@@ -1,14 +1,25 @@
 import {OperationArgDef, OperationArgDefType, OperationArg} from './operations';
 import {isEmpty} from './utils';
 
-type Validator = (argDef: OperationArgDef, arg: OperationArg | null) => boolean;
+type Validator = (argDef: OperationArgDef, arg: OperationArg) => boolean;
 
 type Validators = {
   [k: string]: Validator,
 };
 
+const _isNullableConditioned: Validator = (argDef, arg) => {
+  const nullablePolicy = argDef?.nullable ?? true;
+  if (!nullablePolicy && isEmpty(arg)) {
+    return false;
+  }
+  return true;
+};
+
 const object: Validator = (argDef, arg) => {
-  return false;
+  if (typeof arg !== 'object') {
+    return false;
+  }
+  return _isNullableConditioned(argDef, arg);
 };
 
 
@@ -16,11 +27,7 @@ const array: Validator = (argDef, arg) => {
   if (!Array.isArray(arg)) {
     return false;
   }
-  const nullable = argDef?.nullable ?? true;
-  if (!nullable && isEmpty(arg)) {
-    return false;
-  }
-  return true;
+  return _isNullableConditioned(argDef, arg);
 };
 
 const validators: Validators = {
@@ -39,7 +46,7 @@ const validateArgType: Validator = (argDef, arg) => {
     const v: Validator = validators[argDef.type];
     return v(argDef, arg);  
   }
-  return argDef.type.some((argType: OperationArgDefType) => {
+  return  argDef.type.some((argType: OperationArgDefType) => {
     const ad: OperationArgDef = {
       type: argType,
       nullable: argDef?.nullable ?? true,
@@ -61,3 +68,10 @@ export {
   validateArgPresence,
   validateArgType,
 };
+
+const def: OperationArgDef = {
+  type: ['array', 'object'],
+  required: true,
+  nullable: false,
+};
+validateArgType(def, [])

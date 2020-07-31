@@ -10,12 +10,20 @@ const def: OperationArgDef = {
 
 describe('validators test suit', () => {
   
-  it('array arg positive case', () => {
+  it('validation passes for arg being not an empty array', () => {
     expect(validateArgType(def, [1, 2, 3])).to.be.true;
   });
 
-  it('array arg fails for empty array', () => {
+  it('validation fails for an empty array', () => {
     expect(validateArgType(def, [])).to.be.false;
+  });
+
+  it('validation passes for arg being not an empty object', () => {
+    expect(validateArgType(def, {a: 1, b: 2})).to.be.true;
+  });
+
+  it('validation fails for arg being an empty object', () => {
+    expect(validateArgType(def, {})).to.be.false;
   });
   
 });
