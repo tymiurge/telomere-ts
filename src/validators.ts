@@ -37,6 +37,7 @@ const validators: Validators = {
 
 /**
  * Validates arg type.
+ * If argument type is not nullable in the <code>argDef</code> object but its run time value is null, validation fails.
  * @param argDef
  * @param arg 
  * @returns boolean

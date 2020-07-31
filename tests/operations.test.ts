@@ -5,8 +5,9 @@ import execute from './../src/operations';
 
 describe('operations test suit', () => {
   
-  // it('template with not supported operation name throws "not supported operation" error', () => {
-  // });
+  it('template with not supported operation name throws "not supported operation" error', () => {
+    expect(() => execute('not_existing_operation', [])).to.throw('not_existing_operation is not supported operation');
+  });
 
   it('now operation returns current time', () => {
     const expected = moment().valueOf();
