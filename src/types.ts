@@ -16,7 +16,7 @@ interface NoFunctionArray extends Array<NoFunctionValue> { };
 
 type Emitter = (input: string) => string;
 
-type Token = string | Emitter;
+type Token = NoFunctionValue;
 
 type Tokens = {
   [k: string]: Token,

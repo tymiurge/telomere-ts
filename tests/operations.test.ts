@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import moment from 'moment';
-import execute from './../src/operations';
+import {operationExecutor as execute} from './../src/operations';
 
 
 describe('operations test suit', () => {

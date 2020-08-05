@@ -1,6 +1,7 @@
 import moment from 'moment';
 import {getRandomValueOf} from './utils';
 import {validateArgPresence, validateArgType} from './validators';
+import {Tokens, NoFunctionValue} from './types';
 
 type OperationArg = Object | string | number | Array<any>;
 
@@ -48,7 +49,7 @@ export {
   OperationArg,
 };
 
-export default (name: string, args?: OperationArg[]) => {
+const operationExecutor = (name: string, args?: OperationArg[]) => {
   if (!operations.hasOwnProperty(name)) {
     throw new Error(`${name} is not supported operation`);
   }
@@ -71,4 +72,26 @@ export default (name: string, args?: OperationArg[]) => {
     }
   }
   return operationDef.exec(args || []);
+};
+
+const _extractOperationName = (template: string): string => {
+  const idx = template.indexOf('(');
+  const name = template.substr(0, idx);
+  return name;
 }
+
+/**
+ * Extracts operation name, its parameters from stringified template, executes the operation and returns the execution results.
+ * @param {string} template: stringified operation, i.e. now(), getRandomValueOf(@object)
+ * @param variablesScope
+ * @returns executed operation value
+ */
+const operationFactory = (template: string, variablesScope: Tokens): NoFunctionValue => {
+  const name = _extractOperationName(template);
+  return operationExecutor(name);
+};
+
+export {
+  operationFactory,
+  operationExecutor,
+};
