@@ -32,3 +32,6 @@ Thumbs.db
 
 # Ignore built ts files
 build/**/*
+
+# IDE
+.history/

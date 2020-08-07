@@ -13,8 +13,15 @@ describe('parsing invalid templates', () => {
   // it('template with "data" property being not object throws "data should be a JSON  object" error', () => {
   // });
 
-  // it('malformed json raises "malformed json" error', () => {
-  // });
+  it('template with a syntax error raises SyntaxError', () => {
+    const template = `{
+      "var": "[1]"
+      "data": {
+        "value": "{{ $getRandomValueOf(@var) }}"
+      }
+    }`;
+    expect(() => generate(template)).to.throw('Unexpected string in JSON at position');
+  });
 
   // it('malformed value template raises "malformed value template "', () => {
   //  data: {

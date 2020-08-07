@@ -51,17 +51,33 @@ describe('end to end generation', () => {
       "date": moment().valueOf(),
     };
     const generatedJSON = JSON.parse(generate(template));
-    const diff = expectedJSON.date - generatedJSON.date;
-    expect(diff >= 0 && diff <= 1).to.be.true;
+    const diff = generatedJSON.date - expectedJSON.date;
+    expect(diff >= 0 && diff <= 10).to.be.true;
     
   });
 
-  // it('template with no variables scope', () => {
-
+  // it('generating template with an embedded parameterized operation in data scope', () => {
+  //   const template = `{
+  //     "var": "[1]",
+  //     "data": {
+  //       "value": "{{ $randomValueOf(@var) }}"
+  //     }
+  //   }`;
+  //   const expectedJSON = {
+  //     "value": 1,
+  //   };
+  //   const generatedJSON = JSON.parse(generate(template));
+  //   expect(generatedJSON.value).to.be.equal(expectedJSON.value);
   // });
 
-  // it('template with a dynamic variable', () => {
-
-  // });
+  it('embedded operation that requires parameter but does not have it in template throws', () => {
+    const template = `{
+      "var": "[1]",
+      "data": {
+        "value": "{{ $randomValueOf(@var) }}"
+      }
+    }`;
+    expect(() => generate(template)).to.throw('randomValueOf requires 1 parameter, but 0 is passed');
+  });
 
 });
