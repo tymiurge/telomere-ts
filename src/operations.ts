@@ -74,10 +74,17 @@ const operationExecutor = (name: string, args?: OperationArg[]) => {
   return operationDef.exec(args || []);
 };
 
-const _extractOperationName = (template: string): string => {
+const extractOperationName = (template: string): string => {
   const idx = template.indexOf('(');
   const name = template.substr(0, idx);
   return name;
+}
+
+const extractOperationParameters = (template: string): OperationArg[] => {
+  const startIdx = template.indexOf('(');
+  const endIdx = template.indexOf(')');
+  // const 
+  return [];
 }
 
 /**
@@ -87,7 +94,7 @@ const _extractOperationName = (template: string): string => {
  * @returns executed operation value
  */
 const operationFactory = (template: string, variablesScope: Tokens): NoFunctionValue => {
-  const name = _extractOperationName(template);
+  const name = extractOperationName(template);
   return operationExecutor(name);
 };
 
