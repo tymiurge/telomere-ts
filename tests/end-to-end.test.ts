@@ -70,11 +70,10 @@ describe('end to end generation', () => {
   //   expect(generatedJSON.value).to.be.equal(expectedJSON.value);
   // });
 
-  it('embedded operation that requires parameter but does not have it in template throws', () => {
+  it('required params amount mismatch error is raised at parsing operation that requires parameter but does not have it', () => {
     const template = `{
-      "var": "[1]",
       "data": {
-        "value": "{{ $randomValueOf(@var) }}"
+        "value": "{{ $randomValueOf() }}"
       }
     }`;
     expect(() => generate(template)).to.throw('randomValueOf requires 1 parameter, but 0 is passed');
