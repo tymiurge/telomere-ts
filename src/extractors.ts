@@ -37,7 +37,7 @@ export const extractTemplateValue = (rawTemplate: string, variablesScope: Tokens
 export const extractValue = (valueTemplate: NoFunctionValue, variablesScope: Tokens): NoFunctionValue => {
   if (typeof valueTemplate !== 'string') {
     return valueTemplate;
-  };
+  }
 
   const templateRegex = /{{.*}}/;
   if (templateRegex.test(valueTemplate)) {

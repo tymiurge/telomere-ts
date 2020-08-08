@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {validateArgType, validateArgPresence} from './../src/validators';
+import {validateArgType} from './../src/validators';
 import {OperationArgDef} from './../src/types';
 
 const def: OperationArgDef = {

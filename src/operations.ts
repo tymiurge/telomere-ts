@@ -9,8 +9,8 @@ const operations: Operations = {
     exec: () => moment().valueOf(),
   },
   randomValueOf: {
-    exec: (args: OperationArg[]) => {
-      const source = args[0] as object;
+    exec: (args: OperationArg[]): NoFunctionValue => {
+      const source = args[0] as Record<string, unknown>;
       return getRandomValueOf(source);
     },
     args: [
@@ -23,8 +23,8 @@ const operations: Operations = {
   }
 }
 
-const operationExecutor = (name: string, args?: NoFunctionValue[]) => {
-  if (!operations.hasOwnProperty(name)) {
+const operationExecutor = (name: string, args?: NoFunctionValue[]): NoFunctionValue => {
+  if (!Object.prototype.hasOwnProperty.call(operations, name)) {
     throw new Error(`${name} is not supported operation`);
   }
   const operationDef = operations[name];

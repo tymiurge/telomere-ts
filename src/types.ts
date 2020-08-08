@@ -3,7 +3,7 @@ type NoFunctionObject = {
 }
 
 // TODO: see if it's possible to use type instead fo interface here
-interface NoFunctionArray extends Array<NoFunctionValue> { };
+type NoFunctionArray = NoFunctionValue[];
 
 type NoFunctionValue =
     boolean
@@ -11,7 +11,7 @@ type NoFunctionValue =
     | number
     | null
     | undefined
-    | object
+    | Record<string, unknown>
     | NoFunctionObject
     | NoFunctionArray;
 

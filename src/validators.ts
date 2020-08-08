@@ -1,9 +1,9 @@
 import {OperationArgDef, OperationArgDefType, Validator, Validators} from './types';
 import {isEmpty} from './utils';
 
-const _isNullableConditioned: Validator = (argDef, arg) => {
+const _validateNullablePolicy: Validator = (argDef, arg) => {
   const nullablePolicy = argDef?.nullable ?? true;
-  if (!nullablePolicy && isEmpty(arg)) {
+  if (!nullablePolicy && typeof arg === 'object' && isEmpty(arg)) {
     return false;
   }
   return true;
@@ -13,7 +13,7 @@ const object: Validator = (argDef, arg) => {
   if (typeof arg !== 'object') {
     return false;
   }
-  return _isNullableConditioned(argDef, arg);
+  return _validateNullablePolicy(argDef, arg);
 };
 
 
@@ -21,7 +21,7 @@ const array: Validator = (argDef, arg) => {
   if (!Array.isArray(arg)) {
     return false;
   }
-  return _isNullableConditioned(argDef, arg);
+  return _validateNullablePolicy(argDef, arg);
 };
 
 const validators: Validators = {

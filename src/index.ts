@@ -2,7 +2,7 @@ import {buildVariablesScope, assemble} from './parser';
 
 export const generate = (jsonTemplate: string): string => {
   const template = JSON.parse(jsonTemplate);
-  if (!template.hasOwnProperty('data')) {
+  if (!Object.prototype.hasOwnProperty.call(template, 'data')) {
     throw new Error('No data property in template.');
   }
   const {data, ...variablesTemplate} = template;
