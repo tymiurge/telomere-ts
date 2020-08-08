@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "_telomere-ts",
-      "program": "${workspaceFolder}/src/operations.ts",
+      "program": "${workspaceFolder}/src/index.ts",
       "preLaunchTask": "tsc: build - tsconfig.json",
       "outFiles": ["${workspaceFolder}/build/**/*.js"]
     }

@@ -56,19 +56,19 @@ describe('end to end generation', () => {
     
   });
 
-  // it('generating template with an embedded parameterized operation in data scope', () => {
-  //   const template = `{
-  //     "var": "[1]",
-  //     "data": {
-  //       "value": "{{ $randomValueOf(@var) }}"
-  //     }
-  //   }`;
-  //   const expectedJSON = {
-  //     "value": 1,
-  //   };
-  //   const generatedJSON = JSON.parse(generate(template));
-  //   expect(generatedJSON.value).to.be.equal(expectedJSON.value);
-  // });
+  it('generating template with an embedded parameterized operation in data scope', () => {
+    const template = `{
+      "var": [1],
+      "data": {
+        "value": "{{ $randomValueOf(@var) }}"
+      }
+    }`;
+    const expectedJSON = {
+      "value": 1,
+    };
+    const generatedJSON = JSON.parse(generate(template));
+    expect(generatedJSON.value).to.be.equal(expectedJSON.value);
+  });
 
   it('required params amount mismatch error is raised at parsing operation that requires parameter but does not have it', () => {
     const template = `{

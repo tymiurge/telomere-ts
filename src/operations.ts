@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {getRandomValueOf} from './utils';
 import {validateArgPresence, validateArgType} from './validators';
-import {extractValue} from './extractors';
+import {extractTemplateValue} from './extractors';
 import {Tokens, NoFunctionValue, Operations, OperationArg} from './types';
 
 const operations: Operations = {
@@ -64,7 +64,7 @@ const extractOperationParameters = (template: string, variablesScope: Tokens): N
     .substr(startIdx + 1, endIdx - startIdx - 1)
     .split(',')
     .map(token => token.trim())
-    .map(token => extractValue(token, variablesScope))
+    .map(token => extractTemplateValue(token, variablesScope))
   return parameters;
 }
 
