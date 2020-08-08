@@ -1,11 +1,5 @@
-import {OperationArgDef, OperationArgDefType, OperationArg} from './operations';
+import {OperationArgDef, OperationArgDefType, Validator, Validators} from './types';
 import {isEmpty} from './utils';
-
-type Validator = (argDef: OperationArgDef, arg: OperationArg | null) => boolean;
-
-type Validators = {
-  [k: string]: Validator,
-};
 
 const _isNullableConditioned: Validator = (argDef, arg) => {
   const nullablePolicy = argDef?.nullable ?? true;
@@ -69,10 +63,3 @@ export {
   validateArgPresence,
   validateArgType,
 };
-
-const def: OperationArgDef = {
-  type: ['array', 'object'],
-  required: true,
-  nullable: false,
-};
-validateArgType(def, [])

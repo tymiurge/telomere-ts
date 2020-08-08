@@ -1,3 +1,5 @@
+import { NoFunctionValue } from "./types";
+
 export const getRandomInt = (max: number): number => Math.floor(Math.random() * Math.floor(max));
 
 export const isEmpty = (candidate: Object | Array<any> | null | undefined): boolean => {
@@ -10,7 +12,7 @@ export const isEmpty = (candidate: Object | Array<any> | null | undefined): bool
   return isEmpty(Object.values(candidate));
 };
 
-export const getRandomValueOf = (source: Array<any> | Object): any => {
+export const getRandomValueOf = (source: object ): NoFunctionValue => {
   if (Array.isArray(source)) {
     const randomIdx = getRandomInt(source.length);
     return source[randomIdx];

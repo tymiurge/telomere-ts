@@ -10,11 +10,3 @@ export const generate = (jsonTemplate: string): string => {
   const generatedJson = assemble(data, variablesScope);
   return JSON.stringify(generatedJson);
 }
-
-const t = `{
-  "variable": "value from static scope variable",
-  "data": {
-    "data": "{{ @variable }}"
-  }
-}`;
-generate(t);
