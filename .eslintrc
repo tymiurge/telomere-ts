@@ -58,6 +58,7 @@
       }
     ],
     // Common abbreviations are known and readable
-    "unicorn/prevent-abbreviations": "off"
+    "unicorn/prevent-abbreviations": "off",
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
   }
 }
