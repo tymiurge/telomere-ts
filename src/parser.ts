@@ -1,5 +1,5 @@
 import {Tokens, PlainJSON} from './types';
-import {extractValue} from './extractors';
+import {extractValue} from './operations';
 
 /** 
  * builds variables scope
