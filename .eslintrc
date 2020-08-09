@@ -37,7 +37,11 @@
     // Use function hoisting to improve code readability
     "no-use-before-define": [
       "error",
-      { "functions": false, "classes": true, "variables": true }
+      {
+        "functions": false,
+        "classes": true,
+        "variables": false
+      }
     ],
     // Makes no sense to allow type inference for expression parameters, but require typing the response
     "@typescript-eslint/explicit-function-return-type": [
@@ -46,7 +50,12 @@
     ],
     "@typescript-eslint/no-use-before-define": [
       "error",
-      { "functions": false, "classes": true, "variables": true, "typedefs": true },
+      {
+        "functions": false,
+        "classes": true,
+        "variables": false,
+        "typedefs": true
+      }
     ],
     // Common abbreviations are known and readable
     "unicorn/prevent-abbreviations": "off"
