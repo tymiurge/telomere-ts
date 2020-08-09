@@ -1,28 +1,30 @@
-module.exports = {
-  parserOptions: {
-    project: `./tsconfig.json`
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
   },
-  plugins: [
+  "plugins": [
     "@typescript-eslint",
     "eslint-comments",
     "promise",
-    "unicorn",
+    "unicorn"
   ],
-  extends: [
+  "extends": [
     "airbnb-typescript",
     "plugin:@typescript-eslint/recommended",
     "plugin:eslint-comments/recommended",
     "plugin:promise/recommended",
-    "plugin:unicorn/recommended",
+    "plugin:unicorn/recommended"
     // "prettier",
     // "prettier/react",
     // "prettier/@typescript-eslint",
   ],
-  env: {
-    node: true,
-    browser: true,
+  "env": {
+    "node": true,
+    "browser": true
   },
-  rules: {
+  "rules": {
     // Too restrictive, writing ugly code to defend against a very unlikely scenario: https://eslint.org/docs/rules/no-prototype-builtins
     "no-prototype-builtins": "off",
     // https://basarat.gitbooks.io/typescript/docs/tips/defaultIsBad.html
@@ -35,18 +37,18 @@ module.exports = {
     // Use function hoisting to improve code readability
     "no-use-before-define": [
       "error",
-      { functions: false, classes: true, variables: true },
+      { "functions": false, "classes": true, "variables": true }
     ],
     // Makes no sense to allow type inference for expression parameters, but require typing the response
     "@typescript-eslint/explicit-function-return-type": [
       "error",
-      { allowExpressions: true, allowTypedFunctionExpressions: true },
+      { "allowExpressions": true, "allowTypedFunctionExpressions": true }
     ],
     "@typescript-eslint/no-use-before-define": [
       "error",
-      { functions: false, classes: true, variables: true, typedefs: true },
+      { "functions": false, "classes": true, "variables": true, "typedefs": true },
     ],
     // Common abbreviations are known and readable
-    "unicorn/prevent-abbreviations": "off",
-  },
+    "unicorn/prevent-abbreviations": "off"
+  }
 }

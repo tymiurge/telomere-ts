@@ -6,7 +6,7 @@
   "scripts": {
     "start:dev": "nodemon",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'tests/**/*.ts'",
-    "lint": "npx eslint . --ext .ts"
+    "lint": "npx eslint --ext .js,.jsx,.ts,.tsx ./"
   },
   "keywords": [],
   "author": "",
