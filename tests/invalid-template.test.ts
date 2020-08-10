@@ -1,8 +1,7 @@
-import { expect } from "chai";
-import {generate} from './../src';
+import { expect } from 'chai';
+import { generate } from '../src';
 
 describe('parsing invalid templates', () => {
-  
   it('template with no "data" property throws "no data property" error', () => {
     const template = `{
       "variable": "value from static scope variable"
@@ -10,6 +9,7 @@ describe('parsing invalid templates', () => {
     expect(() => generate(template)).to.throw('No data property in template.');
   });
 
+  // eslint-disable-next-line max-len
   // it('template with "data" property being not object throws "data should be a JSON  object" error', () => {
   // });
 
@@ -46,5 +46,4 @@ describe('parsing invalid templates', () => {
   //    prop: "{{ $ }}"
   //  }
   // });
-  
 });

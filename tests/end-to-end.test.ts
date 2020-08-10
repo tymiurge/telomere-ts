@@ -1,9 +1,8 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import moment from 'moment';
-import {generate} from './../src';
+import { generate } from '../src';
 
 describe('end to end generation', () => {
-  
   it('generating template with a static variable', () => {
     const templateJSON = `{
       "variable": "value from static scope variable",
@@ -48,12 +47,12 @@ describe('end to end generation', () => {
       }
     }`;
     const expectedJSON = {
-      "date": moment().valueOf(),
+      date: moment().valueOf(),
     };
     const generatedJSON = JSON.parse(generate(template));
     const diff = generatedJSON.date - expectedJSON.date;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(diff >= 0 && diff <= 10).to.be.true;
-    
   });
 
   it('generating template with an embedded parameterized operation in data scope', () => {
@@ -64,7 +63,7 @@ describe('end to end generation', () => {
       }
     }`;
     const expectedJSON = {
-      "value": 1,
+      value: 1,
     };
     const generatedJSON = JSON.parse(generate(template));
     expect(generatedJSON.value).to.be.equal(expectedJSON.value);
@@ -78,5 +77,4 @@ describe('end to end generation', () => {
     }`;
     expect(() => generate(template)).to.throw('randomValueOf requires 1 parameter, but 0 is passed');
   });
-
 });
