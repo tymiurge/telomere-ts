@@ -1,6 +1,6 @@
 type NoFunctionObject = {
   [key: string]: NoFunctionValue
-}
+};
 
 // TODO: see if it's possible to use type instead fo interface here
 type NoFunctionArray = NoFunctionValue[];
@@ -25,9 +25,10 @@ type Tokens = {
   [k: string]: Token,
 };
 
+// TODO: change any occurrence to Record<string, NoFunctionValue>
 type PlainJSON = {
   [k: string]: NoFunctionValue
-}
+};
 
 type OperationArgDefType = 'array' | 'undefined' | 'object' | 'boolean' | 'number' | 'bigint' | 'string' | 'symbol' | 'function';
 
@@ -37,12 +38,12 @@ type OperationArgDef = {
   nullable?: boolean,
 };
 
-type Operation = (args: OperationArg[]) => NoFunctionValue; 
+type Operation = (args: OperationArg[]) => NoFunctionValue;
 
 type OperationDef = {
   args?: OperationArgDef[],
   exec: Operation
-}
+};
 
 type Operations = {
   [k: string]: OperationDef,
@@ -69,5 +70,3 @@ export {
   Validator,
   Validators,
 };
-
-
