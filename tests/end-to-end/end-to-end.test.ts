@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import moment from 'moment';
-import { generate } from '../src';
+import { generate } from '../../src';
 
 describe('end to end generation', () => {
   it('generating template with a static variable', () => {
@@ -15,29 +15,6 @@ describe('end to end generation', () => {
     }`;
     const generated = generate(templateJSON);
     expect(generated.replace(/\s+/g, '')).eq(expectedJSON.replace(/\s+/g, ''));
-  });
-
-  it('generating template with not supported operation in data scope throws error', () => {
-    const notSupportedOperationName = 'NOT_SUPPORTED_OPERATION';
-    const template = `{
-      "data": {
-        "date": "{{ $${notSupportedOperationName}() }}"
-      }
-    }`;
-    const errorMessage = `${notSupportedOperationName} is not supported operation`;
-    expect(() => generate(template)).to.throw(errorMessage);
-  });
-
-  it('generating template with not supported operation in variables scope throws error', () => {
-    const notSupportedOperationName = 'NOT_SUPPORTED_OPERATION';
-    const template = `{
-      "var": "${notSupportedOperationName}()",
-      "data": {
-        "date": "{{ $${notSupportedOperationName}() }}"
-      }
-    }`;
-    const errorMessage = `${notSupportedOperationName} is not supported operation`;
-    expect(() => generate(template)).to.throw(errorMessage);
   });
 
   it('generating template with an embedded no-parameters operation in data scope', () => {
@@ -57,6 +34,7 @@ describe('end to end generation', () => {
 
   // TODO: generating template with a static variable being array
   // TODO: generating template with a static variable being object
+  // TODO: generating template with the data property being an array
 
   it('generating template with an embedded parameterized operation in data scope', () => {
     const template = `{
@@ -70,15 +48,6 @@ describe('end to end generation', () => {
     };
     const generatedJSON = JSON.parse(generate(template));
     expect(generatedJSON.value).to.be.equal(expectedJSON.value);
-  });
-
-  it('required params amount mismatch error is raised at parsing operation that requires parameter but does not have it', () => {
-    const template = `{
-      "data": {
-        "value": "{{ $randomValueOf() }}"
-      }
-    }`;
-    expect(() => generate(template)).to.throw('randomValueOf requires 1 parameter, but 0 is passed');
   });
 
   it('generating template with an embedded static object', () => {

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { generate } from '../src';
+import { generate } from '../../src';
 
 describe('comments in template test suit', () => {
   it('whole line comment is omitted', () => {

@@ -1,4 +1,5 @@
 import { buildVariablesScope, assemble } from './parser';
+import { NoFunctionValue } from './types';
 
 const removeComments = (fileContent: string): string => {
   let result = '';
@@ -23,6 +24,9 @@ export const generate = (jsonTemplate: string): string => {
     throw new Error('No data property in template.');
   }
   const { data, ...variablesTemplate } = template;
+  if (typeof data !== 'object') {
+    throw new TypeError('value of the data property should be either of object or of array type');
+  }
   const variablesScope = buildVariablesScope(variablesTemplate);
   const generatedJson = assemble(data, variablesScope);
   return JSON.stringify(generatedJson);

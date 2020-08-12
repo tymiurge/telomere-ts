@@ -18,4 +18,13 @@ describe('common cases for all operations test suit', () => {
       .to
       .throw('The 0-th parameter of randomValueOf operation must be of the array,object type but is of the type string');
   });
+
+  it('required params amount mismatch error is raised at parsing operation that requires parameter but does not have it', () => {
+    const template = `{
+      "data": {
+        "value": "{{ $randomValueOf() }}"
+      }
+    }`;
+    expect(() => generate(template)).to.throw('randomValueOf requires 1 parameter, but 0 is passed');
+  });
 });
