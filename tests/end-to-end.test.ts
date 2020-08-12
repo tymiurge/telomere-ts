@@ -120,4 +120,44 @@ describe('end to end generation', () => {
     const generated = generate(templateJSON);
     expect(generated.replace(/\s+/g, '')).eq(expectedJSON.replace(/\s+/g, ''));
   });
+
+  // it('generating template with an embedded array in data scope', () => {
+  //   const templateJSON = `{
+  //     "phones": {
+  //       "samsung": [
+  //         "Samsung Galaxy S9",
+  //         "Samsung Galaxy S9",
+  //         "Samsung Galaxy S10e",
+  //         "Samsung Galaxy S10",
+  //         "Samsung Galaxy S10+",
+  //         "Samsung Galaxy S10 5G",
+  //         "Samsung Galaxy S10 Lite",
+  //         "Samsung Galaxy S20",
+  //         "Samsung Galaxy S20+",
+  //         "Samsung Galaxy S20 Ultra"
+  //       ],
+  //       "huawei": [
+  //         "Huawei Mate 30 Pro",
+  //         "Huawei Mate 30 (5G)",
+  //         "Huawei Mate 30 Pro (5G)",
+  //         "Huawei Mate 30 RS",
+  //         "Huawei MatePad Pro",
+  //         "Huawei Mate Xs",
+  //         "Huawei Mate 40"
+  //       ]
+  //     },
+  //     "model": "galaxy note",
+  //     "data": {
+  //       "devices": []
+  //     }
+  //   }`;
+  //   const expectedJSON = `{
+  //     "device": {
+  //       "producedBy": "samsung",
+  //       "model": "galaxy note"
+  //     }
+  //   }`;
+  //   const generated = generate(templateJSON);
+  //   expect(generated.replace(/\s+/g, '')).eq(expectedJSON.replace(/\s+/g, ''));
+  // });
 });

@@ -1,12 +1,12 @@
-import moment from 'moment';
-import { getRandomValueOf } from './utils';
-import { validateArgPresence, validateArgType } from './validators';
+import { validateArgPresence, validateArgType } from '../validators';
 import {
   Tokens,
   NoFunctionValue,
   Operations,
   OperationArg,
-} from './types';
+} from '../types';
+import now from './now';
+import randomValueOf from './random-value-of';
 
 /**
  * extracts either variable value from variablesScope or operation value
@@ -64,22 +64,8 @@ export const extractValue = (
 };
 
 const operations: Operations = {
-  now: {
-    exec: () => moment().valueOf(),
-  },
-  randomValueOf: {
-    exec: (args: OperationArg[]): NoFunctionValue => {
-      const source = args[0] as Record<string, unknown>;
-      return getRandomValueOf(source);
-    },
-    args: [
-      {
-        type: ['array', 'object'],
-        required: true,
-        nullable: false,
-      },
-    ],
-  },
+  now,
+  randomValueOf,
 };
 
 const operationExecutor = (name: string, args?: NoFunctionValue[]): NoFunctionValue => {
