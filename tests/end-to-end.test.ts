@@ -55,6 +55,9 @@ describe('end to end generation', () => {
     expect(diff >= 0 && diff <= 10).to.be.true;
   });
 
+  // TODO: generating template with a static variable being array
+  // TODO: generating template with a static variable being object
+
   it('generating template with an embedded parameterized operation in data scope', () => {
     const template = `{
       "var": [1],
@@ -76,5 +79,45 @@ describe('end to end generation', () => {
       }
     }`;
     expect(() => generate(template)).to.throw('randomValueOf requires 1 parameter, but 0 is passed');
+  });
+
+  it('generating template with an embedded static object', () => {
+    const templateJSON = `{
+      "data": {
+        "device": {
+          "producedBy": "samsung",
+          "model": "galaxy note"
+        }
+      }
+    }`;
+    const expectedJSON = `{
+      "device": {
+        "producedBy": "samsung",
+        "model": "galaxy note"
+      }
+    }`;
+    const generated = generate(templateJSON);
+    expect(generated.replace(/\s+/g, '')).eq(expectedJSON.replace(/\s+/g, ''));
+  });
+
+  it('generating template with an embedded object properties of which are variable templates', () => {
+    const templateJSON = `{
+      "manufacture": "samsung",
+      "model": "galaxy note",
+      "data": {
+        "device": {
+          "producedBy": "{{ @manufacture }}",
+          "model": "{{ @model }}"
+        }
+      }
+    }`;
+    const expectedJSON = `{
+      "device": {
+        "producedBy": "samsung",
+        "model": "galaxy note"
+      }
+    }`;
+    const generated = generate(templateJSON);
+    expect(generated.replace(/\s+/g, '')).eq(expectedJSON.replace(/\s+/g, ''));
   });
 });

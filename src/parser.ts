@@ -28,7 +28,12 @@ export const assemble = (
 ): Record<string, NoFunctionValue> => {
   const scope: Record<string, NoFunctionValue> = {};
   Object.entries(dataTemplate).forEach(([key, template]) => {
-    const value = extractValue(template, variablesScope);
+    let value;
+    if (typeof template === 'object') {
+      value = assemble(template as Record<string, NoFunctionValue>, variablesScope);
+    } else {
+      value = extractValue(template, variablesScope);
+    }
     scope[key] = value;
   });
   return scope;
