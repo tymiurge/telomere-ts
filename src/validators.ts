@@ -28,9 +28,17 @@ const array: Validator = (argDef, arg) => {
   return validateNullablePolicy(argDef, arg);
 };
 
+const number: Validator = (argDef, arg) => {
+  if (argDef.required && !arg) {
+    return false;
+  }
+  return typeof arg === 'number';
+};
+
 const validators: Validators = {
   array,
   object,
+  number,
 };
 
 /**

@@ -7,6 +7,7 @@ import {
 } from '../types';
 import now from './now';
 import randomValueOf from './random-value-of';
+import sum from './sum';
 
 /**
  * extracts either variable value from variablesScope or operation value
@@ -66,6 +67,30 @@ export const extractValue = (
 const operations: Operations = {
   now,
   randomValueOf,
+  sum,
+};
+
+const extractOperationName = (template: string): string => {
+  const idx = template.indexOf('(');
+  const name = template.slice(0, idx);
+  return name;
+};
+
+const extractOperationParameters = (
+  template: string,
+  variablesScope: Tokens,
+): NoFunctionValue[] => {
+  const startIdx = template.indexOf('(');
+  const endIdx = template.indexOf(')');
+  if (endIdx - startIdx === 1) {
+    return [];
+  }
+  const parameters = template
+    .slice(startIdx + 1, endIdx)
+    .split(',')
+    .map((token) => token.trim())
+    .map((token) => extractTemplateValue(token, variablesScope));
+  return parameters;
 };
 
 const operationExecutor = (name: string, args?: NoFunctionValue[]): NoFunctionValue => {
@@ -93,28 +118,7 @@ const operationExecutor = (name: string, args?: NoFunctionValue[]): NoFunctionVa
   return operationDef.exec(args as OperationArg[]);
 };
 
-const extractOperationName = (template: string): string => {
-  const idx = template.indexOf('(');
-  const name = template.slice(0, idx);
-  return name;
-};
 
-const extractOperationParameters = (
-  template: string,
-  variablesScope: Tokens,
-): NoFunctionValue[] => {
-  const startIdx = template.indexOf('(');
-  const endIdx = template.indexOf(')');
-  if (endIdx - startIdx === 1) {
-    return [];
-  }
-  const parameters = template
-    .slice(startIdx + 1, endIdx)
-    .split(',')
-    .map((token) => token.trim())
-    .map((token) => extractTemplateValue(token, variablesScope));
-  return parameters;
-};
 
 /**
  * Extracts operation name, its parameters from stringified template, executes the operation and
