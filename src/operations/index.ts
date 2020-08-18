@@ -118,8 +118,6 @@ const operationExecutor = (name: string, args?: NoFunctionValue[]): NoFunctionVa
   return operationDef.exec(args as OperationArg[]);
 };
 
-
-
 /**
  * Extracts operation name, its parameters from stringified template, executes the operation and
  * returns the execution results.
