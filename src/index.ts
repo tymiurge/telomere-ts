@@ -1,5 +1,4 @@
 import { buildVariablesScope, assemble } from './parser';
-import { NoFunctionValue } from './types';
 
 const removeComments = (fileContent: string): string => {
   let result = '';
