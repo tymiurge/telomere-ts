@@ -30,7 +30,8 @@ type PlainJSON = {
   [k: string]: NoFunctionValue
 };
 
-type OperationArgDefType = 'array' | 'undefined' | 'object' | 'boolean' | 'number' | 'bigint' | 'string' | 'symbol' | 'function';
+// eslint-disable-next-line max-len
+type OperationArgDefType = 'array' | 'undefined' | 'object' | 'boolean' | 'number' | 'bigint' | 'string' | 'symbol' | 'function' | 'any';
 
 type OperationArgDef = {
   type: OperationArgDefType | OperationArgDefType[],

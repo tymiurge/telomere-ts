@@ -7,7 +7,7 @@ describe('common cases for all operations test suit', () => {
     expect(() => execute('not_existing_operation', [])).to.throw('not_existing_operation is not supported operation');
   });
 
-  it('type error is raised for an operation with parameter type of which does not correspond to its definition object', () => {
+  it('error is raised for an operation with parameter type which does not correspond to its definition object', () => {
     const template = `{
       "var": "[1]",
       "data": {
@@ -16,10 +16,11 @@ describe('common cases for all operations test suit', () => {
     }`;
     expect(() => generate(template))
       .to
+      // eslint-disable-next-line max-len
       .throw('The 0-th parameter of randomValueOf operation must be of the array,object type but is of the type string');
   });
 
-  it('required params amount mismatch error is raised at parsing operation that requires parameter but does not have it', () => {
+  it('params amount mismatch error is raised at parsing operation that requires parameter but does not have it', () => {
     const template = `{
       "data": {
         "value": "{{ $randomValueOf() }}"

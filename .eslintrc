@@ -59,6 +59,15 @@
     ],
     // Common abbreviations are known and readable
     "unicorn/prevent-abbreviations": "off",
-    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "indent": [2, 2, { "SwitchCase": 1 }],
+    "max-len": [
+      "error",
+      {
+        "comments": 999,
+        "code": 120,
+        "ignoreTemplateLiterals": true
+      }
+    ]
   }
 }

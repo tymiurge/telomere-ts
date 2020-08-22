@@ -19,10 +19,14 @@ describe('randomValueOf operation test suit', () => {
   });
 
   it('randomValueOf applied to an empty array throws type error', () => {
-    expect(() => execute('randomValueOf', [[]])).to.throw('The 0-th parameter of randomValueOf operation must be of the array,object type');
+    expect(() => execute('randomValueOf', [[]]))
+      .to
+      .throw('The 0-th parameter of randomValueOf operation must be of the array,object type');
   });
 
   it('randomValueOf applied to an empty object throws type error', () => {
-    expect(() => execute('randomValueOf', [{}])).to.throw('The 0-th parameter of randomValueOf operation must be of the array,object type');
+    expect(() => execute('randomValueOf', [{}]))
+      .to
+      .throw('The 0-th parameter of randomValueOf operation must be of the array,object type');
   });
 });

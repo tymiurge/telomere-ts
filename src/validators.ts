@@ -32,7 +32,7 @@ const number: Validator = (argDef, arg) => {
   if (argDef.required && !arg) {
     return false;
   }
-  return typeof arg === 'number';
+  return Number.isFinite(arg);
 };
 
 const validators: Validators = {
